@@ -92,3 +92,5 @@ Essas métricas são atualizadas em tempo real usando Laravel Echo com Broadcast
 - **Broadcast:** As atualizações em tempo real requerem uma conta Pusher. Configure as variáveis de ambiente PUSHER_APP_ID, PUSHER_APP_KEY, PUSHER_APP_SECRET, e PUSHER_APP_CLUSTER no arquivo .env.
 
 - **Atividades Recentes:** O dashboard também exibe uma tabela de atividades recentes que mostra o usuário que fez a alteração e a tarefa em questão. Note que este item não está ativo com Broadcast.
+
+- **Criar administrador:** Para transformar um usuário em administrador basta rodar o command: ``php artisan make-admin emailDoUsuário``.
