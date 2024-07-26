@@ -1,66 +1,94 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Projeto Laravel
+Este projeto é uma aplicação Laravel que inclui um dashboard de administração com funcionalidades em tempo real e tarefas. Este README fornece instruções para configurar e executar o projeto localmente.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Tecnologias Usadas
+- **PHP:** 8.1
+- **Laravel:** 11
+- **Node.js:** 20.9.0
+- **npm:** 10.1.0
+- **Composer**
+- **Banco de Dados:** MySQL
+## Configuração do Projeto
+### 1. Clone o Repositório
+Primeiro, clone o repositório para sua máquina local:
 
-## About Laravel
+``git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git``
+``cd SEU_REPOSITORIO``
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 2. Instale as Dependências
+Instale as dependências do PHP usando Composer:
+``composer install``
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Instale as dependências do front-end usando npm:
+``npm install``
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 3. Configure o Arquivo .env
+Copie o arquivo .env.example para um novo arquivo .env e configure as variáveis de ambiente:
+``cp .env.example .env``
 
-## Learning Laravel
+Edite o arquivo .env com as seguintes configurações:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### Banco de Dados:
+DB_CONNECTION=mysql
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+DB_HOST=127.0.0.1
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+DB_PORT=3306
 
-## Laravel Sponsors
+DB_DATABASE=nome_do_banco
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+DB_USERNAME=seu_usuario
 
-### Premium Partners
+DB_PASSWORD=sua_senha
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### Pusher:
+Crie uma conta em Pusher e configure as seguintes variáveis:
+PUSHER_APP_ID=seu_app_id
 
-## Contributing
+PUSHER_APP_KEY=seu_app_key
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+PUSHER_APP_SECRET=seu_app_secret
 
-## Code of Conduct
+PUSHER_APP_CLUSTER=seu_app_cluster
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 4. Execute as Migrations e Seeders
+Para preparar o banco de dados, execute as migrations e seeders:
 
-## Security Vulnerabilities
+``php artisan migrate``
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+``php artisan db:seed``
 
-## License
+O seeder cria:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- 10 usuários aleatórios
+- Um usuário admin com e-mail admin@admin.com e senha password
+- Um usuário de teste com e-mail test@test.com e senha password
+- 20 tarefas para cada usuário
+### 5. Inicie o Job Queue
+Alguns eventos do backend são processados via jobs. Inicie o worker da fila com o comando:
+
+``php artisan queue:work``
+
+### 6. Execute o Servidor Backend
+Para rodar o backend da aplicação, execute:
+
+``php artisan serve``
+### 7. Execute o Frontend
+Para rodar o front-end da aplicação, execute:
+
+``npm run dev``
+
+## Funcionalidades do Dashboard
+O usuário admin tem acesso ao dashboard que inclui:
+
+- Número total de tarefas
+- Número total de tarefas concluídas
+- Número total de tarefas pendentes
+
+Essas métricas são atualizadas em tempo real usando Laravel Echo com Broadcast e Pusher.
+
+
+## Notas Adicionais
+- **Broadcast:** As atualizações em tempo real requerem uma conta Pusher. Configure as variáveis de ambiente PUSHER_APP_ID, PUSHER_APP_KEY, PUSHER_APP_SECRET, e PUSHER_APP_CLUSTER no arquivo .env.
+
+- **Atividades Recentes:** O dashboard também exibe uma tabela de atividades recentes que mostra o usuário que fez a alteração e a tarefa em questão. Note que este item não está ativo com Broadcast.
